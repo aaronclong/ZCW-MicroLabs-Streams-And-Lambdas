@@ -6,6 +6,7 @@ import com.zipcodewilmington.streams.tools.RandomUtils;
 import com.zipcodewilmington.streams.tools.StringUtils;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,7 +21,8 @@ public class StreamFilter {
      * No arg constructor
      */ //TODO - construct person stream of 100 person objects; startingCharacter is a random capital letter
     public StreamFilter() {
-        this(Stream.empty(), null);
+        this(PersonFactory.createPersonStream(100),
+                (char) (new Random().nextInt(90 - 65 + 1) + 65));
     }
 
     /**
@@ -28,7 +30,8 @@ public class StreamFilter {
      * @param startingCharacter - character to filter by
      */ //TODO
     public StreamFilter(Person[] people, Character startingCharacter) {
-        this(Stream.empty(), null);
+        this(Stream.of(people).filter(p -> p.getName().charAt(0) == startingCharacter),
+                startingCharacter);
     }
 
     /**
@@ -36,7 +39,7 @@ public class StreamFilter {
      * @param startingCharacter - character to filter by
      */ //TODO
     public StreamFilter(List<Person> people, Character startingCharacter) {
-        this(Stream.empty(), null);
+        this(people.stream().filter(p -> p.getName().charAt(0) == startingCharacter), startingCharacter);
     }
 
 
